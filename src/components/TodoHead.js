@@ -28,13 +28,22 @@ const TodoHeadBlock = styled.div`
 
 function TodoHead(){
     const todos = useTodoState();
-    console.log(todos);
-    
+    const undoneTasks = todos.filter(todo => !todo.done); //done 값이 false인 항목 개수 세는 법
+
+    const today = new Date();
+    const dateString = today.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    const dayName = today.toLocaleDateString('ko-KR', {weekday: 'long'});
+    //tolocaleString이란 함수 사용해서 날짜 작업
+
     return(
         <TodoHeadBlock>
-            <h1>2023년 2월 10일</h1>
-            <div className="day">금요일</div>
-            <div className="tasks-left">할 일 2개 남음</div>
+            <h1>{dateString}</h1>
+            <div className="day">{dayName}</div>
+            <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
         </TodoHeadBlock>
     );
 }
